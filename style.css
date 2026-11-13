@@ -1,0 +1,99 @@
+:root{
+  --bg:#060a1c; --ink:#e8ecff; --mute:#9aa4c7; --line:rgba(255,255,255,.09);
+  --card:rgba(255,255,255,.055); --accent:#5eead4; --accent2:#818cf8;
+  --low:#3ee6a0; --mid:#ffc857; --high:#ff5d6c;
+}
+*{box-sizing:border-box}
+html{color-scheme:dark}
+body{
+  margin:0; min-height:100vh; color:var(--ink);
+  font:16px/1.55 "Inter","Segoe UI","Noto Sans Bengali","Noto Sans Devanagari",system-ui,sans-serif;
+  background:
+    radial-gradient(900px 500px at 85% -10%, rgba(99,102,241,.28), transparent 60%),
+    radial-gradient(700px 500px at -10% 20%, rgba(45,212,191,.16), transparent 60%),
+    var(--bg);
+}
+.sky{position:fixed; inset:0; pointer-events:none; overflow:hidden; opacity:.55}
+.orbit{position:absolute; right:-160px; top:-160px; width:520px; height:520px; border:1px dashed rgba(255,255,255,.12); border-radius:50%; animation:spin 40s linear infinite}
+.orbit i{position:absolute; top:-5px; left:50%; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 18px 4px rgba(94,234,212,.6)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.top,main,footer{position:relative; max-width:1080px; margin:0 auto; padding:0 20px}
+.top{display:flex; justify-content:space-between; align-items:center; gap:16px; padding-top:28px; padding-bottom:18px}
+.brand{display:flex; gap:12px; align-items:center}
+h1{margin:0; font-size:1.5rem; letter-spacing:.01em}
+.brand p{margin:0; color:var(--mute); font-size:.9rem}
+h2{margin:0 0 12px; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); font-weight:600}
+
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:20px; padding:20px;
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 20px 50px -25px rgba(0,0,0,.7);
+}
+.grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:16px}
+@media (max-width:760px){.grid{grid-template-columns:1fr}.top{flex-direction:column;align-items:flex-start}}
+
+.picker .row{display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap}
+.picker .row+.row{margin-top:12px}
+.grow{flex:1; min-width:220px}
+label{display:flex; flex-direction:column; gap:6px; font-size:.78rem; color:var(--mute)}
+select,input{
+  background:rgba(8,12,34,.75); color:var(--ink); border:1px solid var(--line); border-radius:12px;
+  padding:11px 12px; font:inherit; font-size:.95rem; min-width:110px
+}
+select:focus,input:focus,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+button{font:inherit; border:0; border-radius:12px; padding:11px 18px; cursor:pointer; font-weight:600}
+.primary{background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#06101f}
+.primary:hover{filter:brightness(1.08)}
+.ghost{background:transparent; color:var(--ink); border:1px solid var(--line)}
+.ghost:hover{background:rgba(255,255,255,.06)}
+
+.gauge-card{--c:var(--low)}
+.gauge-card[data-level="mid"]{--c:var(--mid)}
+.gauge-card[data-level="high"]{--c:var(--high)}
+.gauge-card{border-color:color-mix(in srgb,var(--c) 45%, transparent); box-shadow:0 0 0 1px color-mix(in srgb,var(--c) 20%, transparent), 0 24px 60px -28px var(--c)}
+.gauge{position:relative; max-width:300px; margin:0 auto}
+.gauge svg{width:100%; display:block}
+.gauge .track,.gauge .fill{fill:none; stroke-width:14; stroke-linecap:round}
+.gauge .track{stroke:rgba(255,255,255,.1)}
+.gauge .fill{stroke:var(--c); transition:stroke-dasharray 1s cubic-bezier(.2,.8,.2,1); filter:drop-shadow(0 0 8px var(--c))}
+.score{position:absolute; inset:auto 0 6px 0; text-align:center; display:flex; flex-direction:column; line-height:1.1}
+.score b{font-size:2.8rem; font-variant-numeric:tabular-nums}
+.score small{color:var(--c); font-weight:700; letter-spacing:.08em; text-transform:uppercase; font-size:.8rem}
+.alert{font-size:1.02rem; margin:14px 0}
+.actions{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+.note{color:var(--mute); font-size:.8rem; margin:8px 0 0}
+.actions .note{margin:0}
+
+.chart svg{width:100%; height:auto; display:block}
+.chart .bar{fill:url(#bg1)}
+.chart text{fill:var(--mute); font-size:9px; text-anchor:middle}
+.chart .val{fill:var(--ink); font-weight:600}
+.stats{list-style:none; padding:0; margin:12px 0 0; display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+.stats li{background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:12px; padding:8px 10px; font-size:.75rem; color:var(--mute)}
+.stats b{display:block; color:var(--ink); font-size:1.1rem}
+
+.checklist{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+.checklist li{display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.03)}
+.checklist input{min-width:0; width:18px; height:18px; margin-top:3px; accent-color:var(--accent)}
+.checklist label{flex-direction:row; font-size:.95rem; color:var(--ink); cursor:pointer}
+.checklist input:checked+span{opacity:.55; text-decoration:line-through}
+
+.q{margin-bottom:14px}
+.q p{margin:0 0 8px; font-weight:600}
+.opt{display:block; width:100%; text-align:left; margin-bottom:6px; background:rgba(255,255,255,.05); color:var(--ink); border:1px solid var(--line); font-weight:500}
+.opt:hover{background:rgba(255,255,255,.09)}
+.opt.ok{border-color:var(--low); background:rgba(62,230,160,.14)}
+.opt.bad{border-color:var(--high); background:rgba(255,93,108,.14)}
+.why{font-size:.85rem; color:var(--mute); margin:4px 0 0}
+
+.how{margin-top:16px}
+.how summary{cursor:pointer; font-weight:600}
+.how div{color:var(--mute); font-size:.92rem; margin-top:10px}
+.how code{background:rgba(255,255,255,.08); padding:2px 6px; border-radius:6px; color:var(--ink)}
+footer{padding-top:24px; padding-bottom:40px; color:var(--mute); font-size:.82rem}
+footer .small{font-size:.74rem; opacity:.75}
+.badge{display:inline-block; padding:2px 8px; border-radius:999px; font-size:.7rem; font-weight:700; margin-right:6px}
+.badge.live{background:rgba(62,230,160,.18); color:var(--low)}
+.badge.demo{background:rgba(255,200,87,.18); color:var(--mid)}
+@media (prefers-reduced-motion:reduce){.orbit{animation:none}.gauge .fill{transition:none}}

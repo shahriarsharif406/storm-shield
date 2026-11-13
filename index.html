@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Storm-Shield — satellite rain alerts for schools</title>
+<meta name="description" content="Storm-Shield turns NASA satellite rainfall data into a simple risk level, a spoken alert and a safety checklist for any school, in four languages.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4 56 14v18c0 15-10 24-24 28C18 56 8 47 8 32V14z' fill='%2320c7ff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sky" aria-hidden="true"><span class="orbit"><i></i></span></div>
+
+<header class="top">
+  <div class="brand">
+    <svg viewBox="0 0 64 64" width="38" height="38" aria-hidden="true">
+      <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5eead4"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs>
+      <path d="M32 4 56 14v18c0 15-10 24-24 28C18 56 8 47 8 32V14z" fill="url(#g1)"/>
+      <path d="M20 34c0-6 5-10 11-9 3-6 13-4 13 3 4 0 6 3 6 6 0 3-3 5-6 5H24c-3 0-4-2-4-5z" fill="#0b1030" opacity=".85"/>
+      <path d="M27 42l-3 7M34 42l-3 7M41 42l-3 7" stroke="#5eead4" stroke-width="2.4" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <h1>Storm-Shield</h1>
+      <p id="tagline"></p>
+    </div>
+  </div>
+  <label class="lang">
+    <span id="lbl-lang"></span>
+    <select id="lang">
+      <option value="en">English</option>
+      <option value="bn">বাংলা</option>
+      <option value="es">Español</option>
+      <option value="hi">हिन्दी</option>
+    </select>
+  </label>
+</header>
+
+<main>
+  <section class="card picker">
+    <div class="row">
+      <label class="grow"><span id="lbl-school"></span>
+        <select id="place"></select>
+      </label>
+      <button id="btn-geo" class="ghost" type="button"></button>
+    </div>
+    <div class="row">
+      <label><span>Lat</span><input id="lat" type="number" step="0.01" min="-90" max="90"></label>
+      <label><span>Lon</span><input id="lon" type="number" step="0.01" min="-180" max="180"></label>
+      <button id="btn-check" class="primary" type="button"></button>
+    </div>
+  </section>
+
+  <section class="grid">
+    <article class="card gauge-card" id="risk-card" data-level="low">
+      <h2 id="h-risk"></h2>
+      <div class="gauge">
+        <svg viewBox="0 0 200 120" role="img" aria-label="risk gauge">
+          <path class="track" d="M20 100 A80 80 0 0 1 180 100" pathLength="100"/>
+          <path class="fill" id="arc" d="M20 100 A80 80 0 0 1 180 100" pathLength="100" stroke-dasharray="0 100"/>
+        </svg>
+        <div class="score"><b id="score">–</b><small id="level"></small></div>
+      </div>
+      <p class="alert" id="alert-text"></p>
+      <div class="actions">
+        <button id="btn-listen" class="primary" type="button"></button>
+        <span id="voice-note" class="note"></span>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2 id="h-sat"></h2>
+      <div id="chart" class="chart" role="img"></div>
+      <ul class="stats" id="stats"></ul>
+      <p class="note" id="src-note"></p>
+    </article>
+
+    <article class="card">
+      <h2 id="h-check"></h2>
+      <ul class="checklist" id="checklist"></ul>
+    </article>
+
+    <article class="card">
+      <h2 id="h-quiz"></h2>
+      <div id="quiz"></div>
+    </article>
+  </section>
+
+  <details class="card how">
+    <summary id="h-how"></summary>
+    <div id="how-body"></div>
+  </details>
+</main>
+
+<footer>
+  <p id="disclaimer"></p>
+  <p class="small">Data: NASA POWER (satellite-derived rainfall) · Open-Meteo forecast · Open source (MIT) · Built for STEMergent Hacks 2026</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
