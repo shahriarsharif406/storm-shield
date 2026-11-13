@@ -25,6 +25,7 @@ const T = {
     lang: "Language", school: "School location", geo: "Use my location", check: "Check risk",
     risk: "School risk now", sat: "Satellite rainfall · last 7 days", checklist: "Safety checklist", quiz: "Kids' safety quiz",
     listen: "🔊 Listen", how: "How the score works",
+    share: "Share without internet", copy: "Copy", copied: "Copied", sms: "Open SMS", print: "Print poster", smsAlert: "Storm-Shield alert", savedNote: "Saved data (offline)", posterTitle: "School storm alert", posterWhat: "What to do", shareNote: "Plain SMS text and a printable poster work on any phone, with no app or internet.",
     level: { low: "Low", mid: "Elevated", high: "High" },
     msg: {
       low: "Low risk. Normal school day. Review your emergency plan this week.",
@@ -48,6 +49,7 @@ const T = {
     lang: "ভাষা", school: "স্কুলের অবস্থান", geo: "আমার অবস্থান", check: "ঝুঁকি দেখুন",
     risk: "এখন স্কুলের ঝুঁকি", sat: "স্যাটেলাইটে বৃষ্টি · গত ৭ দিন", checklist: "নিরাপত্তা চেকলিস্ট", quiz: "শিশুদের নিরাপত্তা কুইজ",
     listen: "🔊 শুনুন", how: "স্কোর কীভাবে হিসাব হয়",
+    share: "ইন্টারনেট ছাড়াই জানান", copy: "কপি", copied: "কপি হয়েছে", sms: "এসএমএস খুলুন", print: "পোস্টার প্রিন্ট", smsAlert: "Storm-Shield সতর্কতা", savedNote: "সংরক্ষিত তথ্য (অফলাইন)", posterTitle: "স্কুল ঝড়ের সতর্কতা", posterWhat: "কী করবেন", shareNote: "সাধারণ এসএমএস লেখা ও প্রিন্টযোগ্য পোস্টার যেকোনো ফোনে চলে, অ্যাপ বা ইন্টারনেট লাগে না।",
     level: { low: "কম", mid: "বাড়ছে", high: "বেশি" },
     msg: {
       low: "ঝুঁকি কম। স্কুল স্বাভাবিক চলবে। এই সপ্তাহে জরুরি পরিকল্পনাটি একবার দেখে নিন।",
@@ -71,6 +73,7 @@ const T = {
     lang: "Idioma", school: "Ubicación de la escuela", geo: "Mi ubicación", check: "Ver riesgo",
     risk: "Riesgo escolar ahora", sat: "Lluvia por satélite · últimos 7 días", checklist: "Lista de seguridad", quiz: "Quiz de seguridad",
     listen: "🔊 Escuchar", how: "Cómo se calcula el puntaje",
+    share: "Compartir sin internet", copy: "Copiar", copied: "Copiado", sms: "Abrir SMS", print: "Imprimir cartel", smsAlert: "Alerta Storm-Shield", savedNote: "Datos guardados (sin conexión)", posterTitle: "Alerta de tormenta escolar", posterWhat: "Qué hacer", shareNote: "El texto SMS y el cartel imprimible funcionan en cualquier teléfono, sin app ni internet.",
     level: { low: "Bajo", mid: "Moderado", high: "Alto" },
     msg: {
       low: "Riesgo bajo. Jornada escolar normal. Revisen el plan de emergencia esta semana.",
@@ -94,6 +97,7 @@ const T = {
     lang: "भाषा", school: "स्कूल का स्थान", geo: "मेरा स्थान", check: "जोखिम देखें",
     risk: "स्कूल का जोखिम अभी", sat: "उपग्रह से बारिश · पिछले 7 दिन", checklist: "सुरक्षा चेकलिस्ट", quiz: "बच्चों की सुरक्षा क्विज़",
     listen: "🔊 सुनें", how: "स्कोर कैसे बनता है",
+    share: "बिना इंटरनेट साझा करें", copy: "कॉपी", copied: "कॉपी हुआ", sms: "SMS खोलें", print: "पोस्टर प्रिंट", smsAlert: "Storm-Shield अलर्ट", savedNote: "सहेजा गया डेटा (ऑफ़लाइन)", posterTitle: "स्कूल तूफ़ान चेतावनी", posterWhat: "क्या करें", shareNote: "सादा SMS पाठ और प्रिंट करने योग्य पोस्टर किसी भी फोन पर चलते हैं, ऐप या इंटरनेट नहीं चाहिए।",
     level: { low: "कम", mid: "बढ़ता", high: "अधिक" },
     msg: {
       low: "जोखिम कम है। स्कूल सामान्य रूप से चलेगा। इस सप्ताह आपातकालीन योजना देख लें।",
@@ -234,9 +238,35 @@ function renderResult() {
     `<li>${t.maxDay}<b>${fmt(wet)} ${t.mm}</b></li>` +
     `<li>${t.outlook}<b>${s.forecast == null ? "–" : fmt(s.forecast) + " " + t.mm}</b></li>`;
   const last = s.daily[s.daily.length - 1].d;
-  $("src-note").innerHTML = `<span class="badge ${s.live ? "live" : "demo"}">${s.live ? "LIVE" : "DEMO"}</span>` +
-    (s.live ? `${t.liveNote} · ${t.latest}: ${last.slice(0, 4)}-${last.slice(4, 6)}-${last.slice(6)}` : t.demoNote);
+  const tag = s.live ? "LIVE" : s.saved ? "SAVED" : "DEMO";
+  const lastTxt = `${t.latest}: ${last.slice(0, 4)}-${last.slice(4, 6)}-${last.slice(6)}`;
+  $("src-note").innerHTML = `<span class="badge ${s.live ? "live" : "demo"}">${tag}</span>` +
+    (s.live ? `${t.liveNote} · ${lastTxt}` : s.saved ? `${t.savedNote} · ${lastTxt}` : t.demoNote);
+  renderShare();
 }
+
+function smsText() {
+  const t = T[lang], s = state;
+  return `${t.smsAlert} · ${s.place}: ${t.level[s.level]} ${s.score}/100. ${t.list[s.level][0]}.`;
+}
+
+function renderShare() {
+  const t = T[lang], s = state, txt = smsText();
+  $("h-share").textContent = t.share;
+  $("sms").value = txt;
+  $("btn-copy").textContent = t.copy;
+  $("btn-sms").textContent = t.sms;
+  $("btn-sms").href = "sms:?body=" + encodeURIComponent(txt);
+  $("btn-print").textContent = t.print;
+  $("share-note").textContent = t.shareNote;
+  const items = t.list[s.level].map((x) => `<li>${esc(x)}</li>`).join("");
+  $("poster").innerHTML = `<div class="p-head">Storm-Shield</div><h1>${esc(t.posterTitle)}</h1>` +
+    `<h2>${esc(s.place)}</h2><div class="p-level p-${s.level}">${esc(t.level[s.level])} · ${s.score}/100</div>` +
+    `<p class="p-msg">${esc(t.msg[s.level])}</p><h3>${esc(t.posterWhat)}</h3><ul>${items}</ul>` +
+    `<p class="p-foot">${esc(t.disclaimer)} · ${new Date().toISOString().slice(0, 10)}</p>`;
+}
+
+function esc(x) { return String(x).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
 
 function renderQuiz() {
   const box = $("quiz");
@@ -269,16 +299,27 @@ async function check() {
   $("btn-check").disabled = true;
   let daily, live = true;
   const [nasa, fc] = await Promise.allSettled([fetchNasa(lat, lon), fetchForecast(lat, lon)]);
-  if (nasa.status === "fulfilled") daily = nasa.value;
-  else {
+  let saved = false;
+  const key = "ss:" + lat + "," + lon;
+  if (nasa.status === "fulfilled") {
+    daily = nasa.value;
+    try { localStorage.setItem(key, JSON.stringify({ daily })); } catch (e) { /* storage unavailable */ }
+  } else {
     live = false;
-    const now = new Date();
-    daily = DEMO.map((v, i) => ({ d: ymd(new Date(now.getTime() - (DEMO.length - i) * 864e5)), v }));
+    let cached = null;
+    try { cached = JSON.parse(localStorage.getItem(key)); } catch (e) { cached = null; }
+    if (cached && Array.isArray(cached.daily) && cached.daily.length) { daily = cached.daily; saved = true; }
+    else {
+      const now = new Date();
+      daily = DEMO.map((v, i) => ({ d: ymd(new Date(now.getTime() - (DEMO.length - i) * 864e5)), v }));
+    }
   }
   const forecast = fc.status === "fulfilled" ? fc.value : null;
   const total = daily.reduce((a, r) => a + r.v, 0), wet = Math.max(...daily.map((r) => r.v));
   const { score, level } = computeRisk(total, wet, forecast);
-  state = { daily, forecast, live, score, level };
+  const opt = $("place").selectedOptions[0];
+  const place = opt && opt.value === lat + "," + lon ? opt.textContent : lat.toFixed(2) + ", " + lon.toFixed(2);
+  state = { daily, forecast, live, saved, score, level, place };
   renderResult();
   $("btn-check").disabled = false;
 }
@@ -310,6 +351,11 @@ function init() {
   setLL();
   $("btn-check").onclick = check;
   $("btn-listen").onclick = listen;
+  $("btn-print").onclick = () => window.print();
+  $("btn-copy").onclick = async () => {
+    try { await navigator.clipboard.writeText($("sms").value); } catch (e) { $("sms").select(); document.execCommand("copy"); }
+    const b = $("btn-copy"), old = b.textContent; b.textContent = T[lang].copied; setTimeout(() => { b.textContent = old; }, 1500);
+  };
   $("btn-geo").onclick = () => {
     if (!navigator.geolocation) { $("src-note").textContent = T[lang].geoFail; return; }
     $("src-note").textContent = T[lang].locating;

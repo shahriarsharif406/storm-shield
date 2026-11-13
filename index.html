@@ -60,7 +60,7 @@
         </svg>
         <div class="score"><b id="score">–</b><small id="level"></small></div>
       </div>
-      <p class="alert" id="alert-text"></p>
+      <p class="alert" id="alert-text" aria-live="polite"></p>
       <div class="actions">
         <button id="btn-listen" class="primary" type="button"></button>
         <span id="voice-note" class="note"></span>
@@ -80,6 +80,17 @@
     </article>
 
     <article class="card">
+      <h2 id="h-share"></h2>
+      <textarea id="sms" readonly rows="3" aria-label="SMS text"></textarea>
+      <div class="actions">
+        <button id="btn-copy" class="ghost" type="button"></button>
+        <a id="btn-sms" class="ghost btn" href="#"></a>
+        <button id="btn-print" class="ghost" type="button"></button>
+      </div>
+      <p class="note" id="share-note"></p>
+    </article>
+
+    <article class="card">
       <h2 id="h-quiz"></h2>
       <div id="quiz"></div>
     </article>
@@ -96,6 +107,7 @@
   <p class="small">Data: NASA POWER (satellite-derived rainfall) · Open-Meteo forecast · Open source (MIT) · Built for STEMergent Hacks 2026</p>
 </footer>
 
+<section id="poster" aria-hidden="true"></section>
 <script src="app.js"></script>
 </body>
 </html>

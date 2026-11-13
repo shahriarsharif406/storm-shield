@@ -13,6 +13,7 @@ Schools in cyclone- and flood-prone areas often get warnings that are late, tech
 2. **Risk score:** combines 7-day total, the wettest day, and a 3-day forecast (Open-Meteo) into a transparent 0–100 score: low, elevated, or high.
 3. **Spoken alert:** plain-language message in **English, বাংলা, Español, हिन्दी**, read aloud with the browser's speech synthesis (needs a voice for that language on the device; the text is always shown).
 4. **Checklist and quiz:** actions that change with the risk level, plus a two-question safety quiz for children.
+5. **Works without a smartphone or internet:** a ready-to-send SMS text (copy or open in the SMS app) and a one-page printable poster to pin on the school wall. The last live result is saved on the device, so it still opens offline.
 
 Pilot locations are coastal and river areas of Bangladesh (Hatiya, Bhola, Cox's Bazar, Koyra, Sunamganj). Any coordinates worldwide work, and there is a "use my location" button.
 
