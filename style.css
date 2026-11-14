@@ -113,3 +113,6 @@ a.btn{display:inline-block; text-decoration:none; border-radius:12px; padding:11
   #poster ul{text-align:left; font-size:18pt; display:inline-block} #poster li{margin:8px 0}
   #poster .p-foot{font-size:10pt; margin-top:24px}
 }
+.clock{font-size:2.2rem; font-weight:800; font-variant-numeric:tabular-nums; margin:2px 0 10px; letter-spacing:.02em}
+.clock.done{color:var(--low); font-size:1.25rem}
+#drill-body .checklist{margin-bottom:12px}

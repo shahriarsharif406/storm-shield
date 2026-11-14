@@ -38,6 +38,7 @@ const T = {
     quizData: [
       { q: "During a cyclone warning, where should students stay?", o: ["Near the windows", "In a strong inner room, away from windows", "Under a tree"], a: 1, w: "Flying glass and debris are the main danger, so stay away from windows." },
       { q: "Is it safe to walk through floodwater?", o: ["Yes, if it is shallow", "No, it can hide holes and be dirty or fast", "Yes, with sandals"], a: 1, w: "Even shallow floodwater can hide holes, wires and strong currents." } ],
+    drill: "Practice drill", drillStart: "Start 5-minute drill", drillEnd: "End drill", drillDone: "Drill complete", drillNote: "Rehearse the high-risk steps against a timer. Needs no data, so it works offline.",
     mm: "mm", total7: "7-day total", maxDay: "Wettest day", outlook: "3-day outlook",
     liveNote: "Live satellite data", demoNote: "Demo data (live feed unreachable from this browser)", latest: "Latest satellite day",
     noVoice: "No voice for this language on this device; read the text instead.",
@@ -62,6 +63,7 @@ const T = {
     quizData: [
       { q: "ঘূর্ণিঝড়ের সতর্কতায় শিক্ষার্থীরা কোথায় থাকবে?", o: ["জানালার পাশে", "জানালা থেকে দূরে মজবুত ভেতরের ঘরে", "গাছের নিচে"], a: 1, w: "উড়ন্ত কাচ ও ভাঙা জিনিস সবচেয়ে বিপজ্জনক, তাই জানালা থেকে দূরে থাকুন।" },
       { q: "বন্যার পানিতে হাঁটা কি নিরাপদ?", o: ["হ্যাঁ, পানি কম হলে", "না, নিচে গর্ত থাকতে পারে, পানি নোংরা বা স্রোতযুক্ত হতে পারে", "হ্যাঁ, স্যান্ডেল পরলে"], a: 1, w: "অল্প পানিতেও গর্ত, তার বা স্রোত লুকিয়ে থাকতে পারে।" } ],
+    drill: "মহড়া", drillStart: "৫ মিনিটের মহড়া শুরু", drillEnd: "মহড়া শেষ", drillDone: "মহড়া সম্পন্ন", drillNote: "টাইমার ধরে উচ্চ ঝুঁকির ধাপগুলো অনুশীলন করুন। কোনো তথ্য লাগে না, তাই অফলাইনেও চলে।",
     mm: "মিমি", total7: "৭ দিনের মোট", maxDay: "সবচেয়ে ভেজা দিন", outlook: "আগামী ৩ দিন",
     liveNote: "লাইভ স্যাটেলাইট তথ্য", demoNote: "ডেমো তথ্য (এই ব্রাউজার থেকে লাইভ তথ্য পাওয়া যায়নি)", latest: "সর্বশেষ স্যাটেলাইট দিন",
     noVoice: "এই ডিভাইসে এই ভাষার ভয়েস নেই; লেখাটি পড়ে নিন।",
@@ -86,6 +88,7 @@ const T = {
     quizData: [
       { q: "Durante una alerta de ciclón, ¿dónde debe quedarse el alumnado?", o: ["Junto a las ventanas", "En una sala interior resistente, lejos de las ventanas", "Bajo un árbol"], a: 1, w: "Los vidrios y objetos voladores son el mayor peligro; alejarse de las ventanas." },
       { q: "¿Es seguro caminar por el agua de una inundación?", o: ["Sí, si es poco profunda", "No, puede ocultar huecos y estar sucia o con corriente", "Sí, con sandalias"], a: 1, w: "Incluso poca agua puede ocultar huecos, cables y corrientes fuertes." } ],
+    drill: "Simulacro", drillStart: "Iniciar simulacro de 5 minutos", drillEnd: "Terminar simulacro", drillDone: "Simulacro completado", drillNote: "Ensaye los pasos de riesgo alto con un temporizador. No necesita datos, funciona sin conexión.",
     mm: "mm", total7: "Total 7 días", maxDay: "Día más lluvioso", outlook: "Pronóstico 3 días",
     liveNote: "Datos satelitales en vivo", demoNote: "Datos de demostración (sin acceso a datos en vivo desde este navegador)", latest: "Último día satelital",
     noVoice: "No hay voz para este idioma en este dispositivo; lea el texto.",
@@ -110,6 +113,7 @@ const T = {
     quizData: [
       { q: "चक्रवात की चेतावनी में बच्चे कहाँ रहें?", o: ["खिड़कियों के पास", "खिड़कियों से दूर मज़बूत भीतरी कमरे में", "पेड़ के नीचे"], a: 1, w: "उड़ता काँच और मलबा सबसे बड़ा खतरा है, इसलिए खिड़कियों से दूर रहें।" },
       { q: "क्या बाढ़ के पानी में चलना सुरक्षित है?", o: ["हाँ, अगर कम पानी हो", "नहीं, नीचे गड्ढे हो सकते हैं और पानी गंदा या तेज़ हो सकता है", "हाँ, चप्पल पहनकर"], a: 1, w: "कम पानी में भी गड्ढे, तार और तेज़ बहाव छिपे हो सकते हैं।" } ],
+    drill: "अभ्यास ड्रिल", drillStart: "5 मिनट की ड्रिल शुरू करें", drillEnd: "ड्रिल समाप्त", drillDone: "ड्रिल पूरी", drillNote: "टाइमर के साथ उच्च जोखिम के कदमों का अभ्यास करें। डेटा नहीं चाहिए, ऑफ़लाइन भी चलता है।",
     mm: "मिमी", total7: "7 दिन का कुल", maxDay: "सबसे गीला दिन", outlook: "अगले 3 दिन",
     liveNote: "लाइव उपग्रह डेटा", demoNote: "डेमो डेटा (इस ब्राउज़र से लाइव डेटा नहीं मिला)", latest: "नवीनतम उपग्रह दिन",
     noVoice: "इस डिवाइस पर इस भाषा की आवाज़ नहीं है; कृपया पाठ पढ़ें।",
@@ -197,6 +201,7 @@ function renderStatic() {
   $("disclaimer").textContent = t.disclaimer;
   $("btn-listen").textContent = t.listen;
   renderQuiz();
+  renderDrill();
   if (state) renderResult();
 }
 
@@ -267,6 +272,52 @@ function renderShare() {
 }
 
 function esc(x) { return String(x).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+
+/* ---------- practice drill ---------- */
+let drill = null;
+const fmtClock = (n) => String(Math.floor(n / 60)).padStart(2, "0") + ":" + String(n % 60).padStart(2, "0");
+const drillLeft = () => Math.max(0, Math.ceil((drill.end - Date.now()) / 1000));
+
+function startDrill() {
+  drill = { start: Date.now(), end: Date.now() + 300000, done: new Set(), over: false, elapsed: 0 };
+  drill.timer = setInterval(() => {
+    if (!drill) return;
+    const c = $("drill-clock");
+    if (c && !drill.over) c.textContent = fmtClock(drillLeft());
+    if (!drill.over && drillLeft() === 0) finishDrill();
+  }, 500);
+  renderDrill();
+}
+function finishDrill() {
+  drill.over = true;
+  drill.elapsed = Math.min(300, Math.round((Date.now() - drill.start) / 1000));
+  clearInterval(drill.timer);
+  renderDrill();
+}
+function stopDrill() { if (drill) clearInterval(drill.timer); drill = null; renderDrill(); }
+
+function renderDrill() {
+  const t = T[lang], box = $("drill-body"), steps = t.list.high;
+  $("h-drill").textContent = t.drill;
+  box.innerHTML = "";
+  const mk = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+  if (!drill) {
+    const b = mk("button", "primary", t.drillStart); b.type = "button"; b.id = "btn-drill"; b.onclick = startDrill;
+    box.append(mk("p", "note", t.drillNote), b);
+    return;
+  }
+  const clock = mk("div", "clock" + (drill.over ? " done" : ""), drill.over ? `${t.drillDone}: ${drill.done.size}/${steps.length} · ${fmtClock(drill.elapsed)}` : fmtClock(drillLeft()));
+  clock.id = "drill-clock";
+  const ul = mk("ul", "checklist");
+  steps.forEach((txt, i) => {
+    const li = mk("li"), lab = mk("label"), inp = mk("input"), sp = mk("span", null, txt);
+    inp.type = "checkbox"; inp.checked = drill.done.has(i); inp.disabled = drill.over;
+    inp.onchange = () => { if (inp.checked) drill.done.add(i); else drill.done.delete(i); if (drill.done.size === steps.length) finishDrill(); };
+    lab.append(inp, sp); li.append(lab); ul.append(li);
+  });
+  const end = mk("button", "ghost", t.drillEnd); end.type = "button"; end.onclick = stopDrill;
+  box.append(clock, ul, end);
+}
 
 function renderQuiz() {
   const box = $("quiz");

@@ -14,6 +14,7 @@ Schools in cyclone- and flood-prone areas often get warnings that are late, tech
 3. **Spoken alert:** plain-language message in **English, বাংলা, Español, हिन्दी**, read aloud with the browser's speech synthesis (needs a voice for that language on the device; the text is always shown).
 4. **Checklist and quiz:** actions that change with the risk level, plus a two-question safety quiz for children.
 5. **Works without a smartphone or internet:** a ready-to-send SMS text (copy or open in the SMS app) and a one-page printable poster to pin on the school wall. The last live result is saved on the device, so it still opens offline.
+6. **Practice drill:** a 5-minute timed rehearsal of the high-risk steps, so schools practise before the storm. It needs no data and works offline.
 
 Pilot locations are coastal and river areas of Bangladesh (Hatiya, Bhola, Cox's Bazar, Koyra, Sunamganj). Any coordinates worldwide work, and there is a "use my location" button.
 
