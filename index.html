@@ -90,6 +90,20 @@
       <p class="note" id="share-note"></p>
     </article>
 
+    <article class="card" id="cal-card">
+      <h2 id="h-cal"></h2>
+      <p class="note" id="cal-note"></p>
+      <div class="row cal-row">
+        <label><span id="lbl-cal-week"></span><input id="cal-week" type="number" min="1" step="1" inputmode="numeric"></label>
+        <label><span id="lbl-cal-day"></span><input id="cal-day" type="number" min="1" step="1" inputmode="numeric"></label>
+      </div>
+      <div class="actions">
+        <button id="btn-cal-save" class="primary" type="button"></button>
+        <button id="btn-cal-reset" class="ghost" type="button"></button>
+      </div>
+      <p class="note" id="cal-status" aria-live="polite"></p>
+    </article>
+
     <article class="card">
       <h2 id="h-drill"></h2>
       <div id="drill-body"></div>

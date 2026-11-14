@@ -116,3 +116,7 @@ a.btn{display:inline-block; text-decoration:none; border-radius:12px; padding:11
 .clock{font-size:2.2rem; font-weight:800; font-variant-numeric:tabular-nums; margin:2px 0 10px; letter-spacing:.02em}
 .clock.done{color:var(--low); font-size:1.25rem}
 #drill-body .checklist{margin-bottom:12px}
+
+.cal-row{margin:10px 0 12px}
+.cal-row label{flex:1; min-width:140px}
+.cal-on{color:#5eead4}

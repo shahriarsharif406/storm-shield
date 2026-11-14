@@ -122,6 +122,31 @@ const T = {
     disclaimer: "Storm-Shield जागरूकता का साधन है, आधिकारिक चेतावनी नहीं। हमेशा राष्ट्रीय मौसम सेवा और स्थानीय प्रशासन की बात मानें।" }
 };
 
+Object.assign(T.en, {
+  calTitle: "Calibrate to your school", calNote: "Teachers know the local flood history. Enter the rainfall that last flooded your school and the score will use it instead of the generic default.",
+  calWeek: "7-day rain that flooded us (mm)", calDay: "One-day rain that flooded us (mm)", calSave: "Save for this place", calReset: "Use default",
+  calOn: "Calibrated to this school's flood marks", calOff: "Using generic default marks (120 mm / week, 70 mm / day)", calPct: "Share of your flood mark", calBad: "Enter two numbers above 0.",
+});
+T.en.how_html += " Schools can replace the 120 mm and 70 mm marks with the rainfall that actually flooded them; the score then measures this week against their own history.";
+Object.assign(T.bn, {
+  calTitle: "আপনার স্কুলের জন্য মানদণ্ড ঠিক করুন", calNote: "স্থানীয় বন্যার ইতিহাস শিক্ষকরাই জানেন। যে বৃষ্টিতে স্কুলে পানি উঠেছিল তা লিখুন; স্কোর তখন সাধারণ মানের বদলে এটি ব্যবহার করবে।",
+  calWeek: "যে ৭ দিনের বৃষ্টিতে পানি উঠেছিল (মিমি)", calDay: "যে একদিনের বৃষ্টিতে পানি উঠেছিল (মিমি)", calSave: "এই স্থানের জন্য সংরক্ষণ", calReset: "সাধারণ মান ব্যবহার",
+  calOn: "এই স্কুলের বন্যার চিহ্ন অনুযায়ী ঠিক করা", calOff: "সাধারণ মান ব্যবহার হচ্ছে (সপ্তাহে ১২০ মিমি / দিনে ৭০ মিমি)", calPct: "আপনার বন্যা-চিহ্নের কত অংশ", calBad: "০-র বেশি দুটি সংখ্যা দিন।",
+});
+T.bn.how_html += " স্কুল ১২০ ও ৭০ মিমি-র বদলে নিজেদের বন্যার সময়ের বৃষ্টি বসাতে পারে; তখন স্কোর এই সপ্তাহকে তাদের নিজস্ব ইতিহাসের সঙ্গে মাপে।";
+Object.assign(T.es, {
+  calTitle: "Calibrar para su escuela", calNote: "Los docentes conocen el historial local de inundaciones. Ingrese la lluvia que inundó su escuela y el puntaje la usará en lugar del valor genérico.",
+  calWeek: "Lluvia de 7 días que nos inundó (mm)", calDay: "Lluvia de un día que nos inundó (mm)", calSave: "Guardar para este lugar", calReset: "Usar valor genérico",
+  calOn: "Calibrado con las marcas de inundación de esta escuela", calOff: "Usando marcas genéricas (120 mm / semana, 70 mm / día)", calPct: "Porcentaje de su marca de inundación", calBad: "Ingrese dos números mayores que 0.",
+});
+T.es.how_html += " Las escuelas pueden reemplazar los 120 mm y 70 mm por la lluvia que realmente las inundó; el puntaje mide entonces esta semana frente a su propia historia.";
+Object.assign(T.hi, {
+  calTitle: "अपने स्कूल के लिए सेट करें", calNote: "स्थानीय बाढ़ का इतिहास शिक्षक जानते हैं। जिस बारिश से स्कूल में पानी भरा था वह लिखें; स्कोर सामान्य मान की जगह इसे इस्तेमाल करेगा।",
+  calWeek: "जिन 7 दिनों की बारिश से पानी भरा (मिमी)", calDay: "जिस एक दिन की बारिश से पानी भरा (मिमी)", calSave: "इस स्थान के लिए सहेजें", calReset: "सामान्य मान लें",
+  calOn: "इस स्कूल के बाढ़ चिह्नों के अनुसार सेट", calOff: "सामान्य मान इस्तेमाल हो रहे हैं (120 मिमी / सप्ताह, 70 मिमी / दिन)", calPct: "आपके बाढ़ चिह्न का हिस्सा", calBad: "0 से बड़ी दो संख्याएँ दें।",
+});
+T.hi.how_html += " स्कूल 120 और 70 मिमी की जगह अपनी असली बाढ़ वाली बारिश रख सकते हैं; तब स्कोर इस सप्ताह को उनके अपने इतिहास से मापता है।";
+
 const DEMO = [4.1, 12.4, 31.0, 55.2, 23.5, 8.0, 2.2];
 
 const $ = (id) => document.getElementById(id);
@@ -131,12 +156,16 @@ let state = null; // { daily:[{d,v}], forecast:number|null, live:boolean, score,
 /* ---------- pure logic (exported for tests) ---------- */
 const clamp01 = (x) => Math.max(0, Math.min(1, x));
 
-function computeRisk(total7, maxDay, forecast3) {
-  const a = clamp01(total7 / 120) * 45;
-  const b = clamp01(maxDay / 70) * 30;
+function computeRisk(total7, maxDay, forecast3, cal) {
+  // cal = optional school-set flood marks: { week: mm of 7-day rain that flooded the school, day: mm in one day }
+  const wk = cal && cal.week > 0 ? cal.week : 120;
+  const dy = cal && cal.day > 0 ? cal.day : 70;
+  const fr = wk * (80 / 120);
+  const a = clamp01(total7 / wk) * 45;
+  const b = clamp01(maxDay / dy) * 30;
   let score;
   if (forecast3 == null || Number.isNaN(forecast3)) score = ((a + b) / 75) * 100;
-  else score = a + b + clamp01(forecast3 / 80) * 25;
+  else score = a + b + clamp01(forecast3 / fr) * 25;
   score = Math.round(Math.max(0, Math.min(100, score)));
   const level = score >= 65 ? "high" : score >= 35 ? "mid" : "low";
   return { score, level };
@@ -241,13 +270,15 @@ function renderResult() {
   $("stats").innerHTML =
     `<li>${t.total7}<b>${fmt(total)} ${t.mm}</b></li>` +
     `<li>${t.maxDay}<b>${fmt(wet)} ${t.mm}</b></li>` +
-    `<li>${t.outlook}<b>${s.forecast == null ? "–" : fmt(s.forecast) + " " + t.mm}</b></li>`;
+    `<li>${t.outlook}<b>${s.forecast == null ? "–" : fmt(s.forecast) + " " + t.mm}</b></li>` +
+    (s.cal ? `<li>${t.calPct}<b>${Math.round((total / s.cal.week) * 100)}%</b></li>` : "");
   const last = s.daily[s.daily.length - 1].d;
   const tag = s.live ? "LIVE" : s.saved ? "SAVED" : "DEMO";
   const lastTxt = `${t.latest}: ${last.slice(0, 4)}-${last.slice(4, 6)}-${last.slice(6)}`;
   $("src-note").innerHTML = `<span class="badge ${s.live ? "live" : "demo"}">${tag}</span>` +
     (s.live ? `${t.liveNote} · ${lastTxt}` : s.saved ? `${t.savedNote} · ${lastTxt}` : t.demoNote);
   renderShare();
+  renderCal();
 }
 
 function smsText() {
@@ -342,6 +373,46 @@ function renderQuiz() {
   });
 }
 
+/* ---------- school calibration ---------- */
+const calKey = (lat, lon) => "ss:cal:" + lat + "," + lon;
+function loadCal(lat, lon) {
+  try {
+    const c = JSON.parse(localStorage.getItem(calKey(lat, lon)));
+    if (c && c.week > 0 && c.day > 0) return { week: +c.week, day: +c.day };
+  } catch (e) { /* none */ }
+  return null;
+}
+function renderCal() {
+  const t = T[lang], cal = state ? state.cal : null;
+  $("h-cal").textContent = t.calTitle;
+  $("cal-note").textContent = t.calNote;
+  $("lbl-cal-week").textContent = t.calWeek;
+  $("lbl-cal-day").textContent = t.calDay;
+  $("btn-cal-save").textContent = t.calSave;
+  $("btn-cal-reset").textContent = t.calReset;
+  if (!$("cal-week").dataset.touched) { $("cal-week").value = cal ? cal.week : ""; $("cal-day").value = cal ? cal.day : ""; }
+  $("cal-status").textContent = cal ? t.calOn : t.calOff;
+  $("cal-status").className = "note cal-" + (cal ? "on" : "off");
+}
+function saveCal() {
+  const week = parseFloat($("cal-week").value), day = parseFloat($("cal-day").value);
+  if (!(week > 0 && day > 0)) { $("cal-status").textContent = T[lang].calBad; return; }
+  try { localStorage.setItem(calKey(state.lat, state.lon), JSON.stringify({ week, day })); } catch (e) { /* storage unavailable */ }
+  $("cal-week").dataset.touched = "";
+  recompute(week > 0 ? { week, day } : null);
+}
+function resetCal() {
+  try { localStorage.removeItem(calKey(state.lat, state.lon)); } catch (e) { /* ignore */ }
+  $("cal-week").value = ""; $("cal-day").value = ""; $("cal-week").dataset.touched = "";
+  recompute(null);
+}
+function recompute(cal) {
+  const s = state, total = s.daily.reduce((a, r) => a + r.v, 0), wet = Math.max(...s.daily.map((r) => r.v));
+  const r = computeRisk(total, wet, s.forecast, cal);
+  state = Object.assign({}, s, { score: r.score, level: r.level, cal });
+  renderResult();
+}
+
 /* ---------- actions ---------- */
 async function check() {
   const lat = parseFloat($("lat").value), lon = parseFloat($("lon").value);
@@ -367,10 +438,11 @@ async function check() {
   }
   const forecast = fc.status === "fulfilled" ? fc.value : null;
   const total = daily.reduce((a, r) => a + r.v, 0), wet = Math.max(...daily.map((r) => r.v));
-  const { score, level } = computeRisk(total, wet, forecast);
+  const cal = loadCal(lat, lon);
+  const { score, level } = computeRisk(total, wet, forecast, cal);
   const opt = $("place").selectedOptions[0];
   const place = opt && opt.value === lat + "," + lon ? opt.textContent : lat.toFixed(2) + ", " + lon.toFixed(2);
-  state = { daily, forecast, live, saved, score, level, place };
+  state = { daily, forecast, live, saved, score, level, place, lat, lon, cal };
   renderResult();
   $("btn-check").disabled = false;
 }
@@ -402,6 +474,9 @@ function init() {
   setLL();
   $("btn-check").onclick = check;
   $("btn-listen").onclick = listen;
+  $("btn-cal-save").onclick = saveCal;
+  $("btn-cal-reset").onclick = resetCal;
+  ["cal-week", "cal-day"].forEach((id) => { $(id).oninput = () => { $("cal-week").dataset.touched = "1"; }; });
   $("btn-print").onclick = () => window.print();
   $("btn-copy").onclick = async () => {
     try { await navigator.clipboard.writeText($("sms").value); } catch (e) { $("sms").select(); document.execCommand("copy"); }
