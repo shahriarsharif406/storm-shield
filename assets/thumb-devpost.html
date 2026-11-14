@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0}
+html,body{width:1200px;height:800px;overflow:hidden}
+body{font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#e8ecff;
+background:radial-gradient(900px 600px at 88% -10%,rgba(99,102,241,.42),transparent 60%),radial-gradient(700px 600px at -5% 110%,rgba(45,212,191,.28),transparent 60%),#060a1c;position:relative}
+.orbit{position:absolute;right:-220px;top:-220px;width:760px;height:760px;border:2px dashed rgba(255,255,255,.12);border-radius:50%}
+.orbit i{position:absolute;top:-9px;left:50%;width:18px;height:18px;border-radius:50%;background:#5eead4;box-shadow:0 0 30px 8px rgba(94,234,212,.6)}
+.wrap{position:absolute;inset:0;padding:64px 64px;display:flex;justify-content:space-between;align-items:center;gap:30px}
+.l{max-width:560px}
+.brand{display:flex;align-items:center;gap:16px;margin-bottom:26px}
+.brand b{font-size:34px;letter-spacing:.01em}
+h1{font-size:70px;line-height:1.04;letter-spacing:-.02em;font-weight:800}
+h1 span{background:linear-gradient(90deg,#5eead4,#818cf8);-webkit-background-clip:text;background-clip:text;color:transparent}
+p{margin-top:22px;font-size:25px;color:#aab3d6;line-height:1.35}
+.chips{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+.chips em{font-style:normal;font-weight:700;font-size:21px;padding:8px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07)}
+.r{flex:0 0 auto;text-align:center}
+.card{width:360px;padding:30px 26px 26px;border-radius:30px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.card small{display:block;letter-spacing:.16em;text-transform:uppercase;font-size:16px;color:#9aa4c7;font-weight:700;margin-bottom:6px}
+.score{font-size:84px;font-weight:800;line-height:1;margin-top:-62px}
+.lvl{display:inline-block;margin-top:8px;font-size:24px;font-weight:800;color:#ff5d6c;letter-spacing:.06em}
+.src{margin-top:18px;font-size:17px;color:#9aa4c7}
+.src b{background:#ffc857;color:#2b1d00;border-radius:6px;padding:2px 8px;margin-right:8px;font-size:14px}
+</style></head><body><div class="orbit"><i></i></div>
+<div class="wrap"><div class="l">
+<div class="brand"><svg viewBox="0 0 64 64" width="64" height="64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5eead4"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs><path d="M32 4 56 14v18c0 15-10 24-24 28C18 56 8 47 8 32V14z" fill="url(#g)"/><path d="M20 34c0-6 5-10 11-9 3-6 13-4 13 3 4 0 6 3 6 6 0 3-3 5-6 5H24c-3 0-4-2-4-5z" fill="#0b1030" opacity=".85"/><path d="M27 42l-3 7M34 42l-3 7M41 42l-3 7" stroke="#5eead4" stroke-width="2.4" stroke-linecap="round"/></svg><b>Storm-Shield</b></div>
+<h1>Satellite rain<br>in. <span>Spoken flood<br>alert out.</span></h1>
+<p>For schools: tuned to each school's own flood history. Works offline.</p>
+<div class="chips"><em>EN</em><em>BN</em><em>ES</em><em>HI</em><em>SMS</em><em>Drill</em></div></div>
+<div class="r"><div class="card"><small>School risk now</small>
+<svg viewBox="0 0 200 120" width="308"><path d="M20 100 A80 80 0 0 1 180 100" pathLength="100" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="14" stroke-linecap="round"/><path d="M20 100 A80 80 0 0 1 180 100" pathLength="100" fill="none" stroke="#ff5d6c" stroke-width="14" stroke-linecap="round" stroke-dasharray="78 100"/></svg>
+<div class="score">78</div><span class="lvl">HIGH</span>
+<div class="src"><b>EXAMPLE</b>Data source: NASA POWER</div></div></div></div></body></html>
